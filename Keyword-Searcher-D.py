@@ -1,4 +1,5 @@
 import os
+import re
 from collections import defaultdict
 
 # Directory where the text files are located
@@ -15,6 +16,10 @@ keyword_counts = defaultdict(int)
 keyword_files = defaultdict(list)
 
 try:
+    # Check if the specified text_directory exists
+    if not os.path.exists(text_directory):
+        raise FileNotFoundError(f"Text directory '{text_directory}' does not exist.")
+
     # Create or open the output text file in write mode
     with open(output_text_file, 'w', encoding='utf-8') as text_file:
         # Write keyword counts and file names
@@ -59,5 +64,7 @@ try:
 
     print(f"Search results saved to {output_text_file}")
 
+except FileNotFoundError as e:
+    print(f"Directory not found error: {e}")
 except Exception as e:
     print(f"An error occurred: {e}")
